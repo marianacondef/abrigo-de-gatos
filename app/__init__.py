@@ -1,18 +1,17 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from config import Config
 
 db = SQLAlchemy()
-login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('config.Config')
-
+    app.config.from_object(Config)
     db.init_app(app)
-    login_manager.init_app(app)
 
-    from .routes import main
+    from app.routes import main
     app.register_blueprint(main)
+
+    from app import models  # ← IMPORTANTE! Isso ativa seus models no banco
 
     return app
