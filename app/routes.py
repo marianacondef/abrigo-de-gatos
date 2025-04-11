@@ -1,4 +1,7 @@
 from flask import Blueprint, render_template, request
+from app.models import Usuario
+from app import db
+from werkzeug.security import generate_password_hash
 
 main = Blueprint('main', __name__)
 
@@ -23,7 +26,18 @@ def registro():
     if request.method == 'POST':
         nome = request.form['nome']
         email = request.form['email']
-        senha = request.form['senha']  # Aqui acessa a senha corretamente
-        return f"Conta criada para: {nome} ({email}) com senha: {senha}"
-    
+        senha = request.form['senha']
+
+        # Cria o hash da senha antes de salvar
+        senha_hash = generate_password_hash(senha)
+
+        # Cria o usuário
+        novo_usuario = Usuario(nome=nome, email=email, senha=senha_hash)
+
+        # Salva no banco
+        db.session.add(novo_usuario)
+        db.session.commit()
+
+        return f"Usuário {nome} registrado com sucesso!"
+
     return render_template("registro.html")
