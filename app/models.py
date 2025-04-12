@@ -10,6 +10,9 @@ class Usuario(UserMixin, db.Model):
     senha = db.Column(db.String(200), nullable=False)
     tipo = db.Column(db.String(20), default="geral")  # admin, funcionario, candidato, geral
 
+    def __repr__(self):
+        return f"<Usuario {self.nome}>"
+
     favoritos = db.relationship("Gato", secondary="favoritos", backref="favoritado_por")
     adotou = db.relationship("Adocao", backref="usuario", lazy=True)
 

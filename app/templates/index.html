@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abrigo de Gatos</title>
+</head>
+<body>
+    <h1>Bem-vindo(a) ao Abrigo de Gatos! 🐱</h1>
+
+    <!-- Verifica se o usuário está logado -->
+    {% if current_user.is_authenticated %}
+        <p>Bem-vindo, {{ current_user.nome }}!</p>
+        <a href="{{ url_for('main.logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ url_for('main.login') }}">Login</a> |
+        <a href="{{ url_for('main.registro') }}">Registrar-se</a>
+    {% endif %}
+
+</body>
+</html>
