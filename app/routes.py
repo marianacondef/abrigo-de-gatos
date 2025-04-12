@@ -9,7 +9,7 @@ main = Blueprint('main', __name__)
 # Página inicial
 @main.route("/")
 def index():
-    return "<h1>Bem-vindo(a) ao Abrigo de Gatos! 🐱 </h1>"
+   return render_template("index.html")
 
 # Login
 @main.route("/login", methods=['GET', 'POST'])

@@ -4,18 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abrigo de Gatos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 <body>
-    <h1>Bem-vindo(a) ao Abrigo de Gatos! 🐱</h1>
+    <div class="navbar">
+        <a href="{{ url_for('main.index') }}">Início</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('main.logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('main.login') }}">Login</a> |
+            <a href="{{ url_for('main.registro') }}">Registrar-se</a>
+        {% endif %}
+    </div>
 
-    <!-- Verifica se o usuário está logado -->
-    {% if current_user.is_authenticated %}
-        <p>Bem-vindo, {{ current_user.nome }}!</p>
-        <a href="{{ url_for('main.logout') }}">Logout</a>
-    {% else %}
-        <a href="{{ url_for('main.login') }}">Login</a> |
-        <a href="{{ url_for('main.registro') }}">Registrar-se</a>
-    {% endif %}
+    <h1>Bem-vindo(a) ao Abrigo de Gatos!</h1>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {% if category == 'error' %}error{% else %}success{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 </body>
 </html>
