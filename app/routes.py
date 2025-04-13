@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 main = Blueprint('main', __name__)
 
-# Página inicial
+
 @main.route("/")
 def index():
    return render_template("index.html")
@@ -15,7 +15,8 @@ def index():
 @main.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.index'))  # Redireciona para a página inicial se o usuário já estiver logado
+        # Redireciona para a página inicial se o usuário já estiver logado
+        return redirect(url_for('main.index'))
 
     if request.method == 'POST':
         email = request.form['email']
@@ -26,14 +27,14 @@ def login():
         # Autenticação do usuário
         if usuario and check_password_hash(usuario.senha, senha):
             login_user(usuario)
-            return redirect(url_for('main.index'))  # Redireciona para a página inicial após o login
+            return redirect(url_for('main.index'))
         else:
             flash("Email ou senha inválidos.", "error")
             return redirect(url_for('main.login'))
 
     return render_template("login.html")
 
-# Registro
+
 @main.route("/registro", methods=['GET', 'POST'])
 def registro():
     if request.method == 'POST':
@@ -54,17 +55,18 @@ def registro():
         try:
             db.session.add(novo_usuario)
             db.session.commit()
-            return redirect(url_for('main.login'))  # Redireciona para a página de login após o registro
+            # Redireciona para a página de login após o registro
+            return redirect(url_for('main.login'))
         except Exception as e:
             flash(f"Erro ao salvar no banco: {str(e)}", "error")
             return redirect(url_for('main.registro'))
 
     return render_template("registro.html")
 
-# Logout
+
 @main.route("/logout")
-@login_required  # Só pode acessar se estiver logado
+@login_required
 def logout():
-    logout_user()  # Desconecta o usuário
+    logout_user()
     flash("Você foi desconectado com sucesso.", "success")
-    return redirect(url_for('main.index'))  # Redireciona para a página inicial após o logout
+    return redirect(url_for('main.index'))
