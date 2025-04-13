@@ -2,17 +2,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Login</h2>
-<form method="POST" action="/login">
-    <label>Email:</label><br>
-    <input type="email" id="email" name="email" required><br><br>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Abrigo de Gatos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
-    <label>Senha:</label><br>
-    <input type="password" id="senha" name="senha" required><br><br>
+    <!-- Conteúdo da página de login -->
+    <h1>Faça Login</h1>
+    <form action="{{ url_for('main.login') }}" method="POST" class="login-form">
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Senha:</label>
+            <input type="password" id="senha" name="senha" required><br><br>
+        </div>
+        <div class="form-group">
+            <button type="submit">Entrar</button>
+        </div>
+        <p style="text-align: center;">Não tem uma conta? <br> <br><a href="{{ url_for('main.registro') }}">Registre-se aqui</a></p>
+    </form>
 
-    <button type="submit">Entrar</button>
-</form>
-
-<p>Não tem uma conta? <a href="{{ url_for('main.registro') }}">Registre-se aqui</a></p>
+    <!-- Mensagens Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {% if category == 'error' %}error{% else %}success{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
 
 {% endblock %}
