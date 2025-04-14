@@ -82,3 +82,57 @@ def admin_teste():
 def lista_gatos():
     gatos = Gato.query.all()
     return render_template("gatos.html", gatos=gatos)
+
+# Adicionar gato
+@main.route('/gatos/novo', methods=['GET', 'POST'])
+@admin_required  
+def cadastrar_gato():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        idade = request.form['idade']
+        peso = request.form['peso']
+        chip = request.form['chip']
+        status = request.form['status']
+        imagem = request.form['imagem']  # pode ser uma URL ou caminho
+
+        novo_gato = Gato(
+            nome=nome,
+            idade=idade,
+            peso=peso,
+            chip=chip,
+            status=status,
+            imagem=imagem
+        )
+        db.session.add(novo_gato)
+        db.session.commit()
+        return redirect(url_for('main.listar_gatos'))
+
+    return render_template('formulario_gato.html') # Formulário para criar gato
+
+# Editar gato
+@main.route('/gatos/<int:id>/editar', methods=['GET', 'POST'])
+@login_required
+def editar_gato(id):
+    gato = Gato.query.get_or_404(id)
+
+    if request.method == 'POST':
+        gato.nome = request.form['nome']
+        gato.idade = request.form['idade']
+        gato.peso = request.form['peso']
+        gato.chip = request.form['chip']
+        gato.status = request.form['status']
+        gato.imagem = request.form['imagem']
+        
+        db.session.commit()
+        return redirect(url_for('main.listar_gatos'))
+
+    return render_template('formulario_gato.html', gato=gato)
+
+# Deletar gato
+@main.route('/gatos/<int:id>/deletar', methods=['POST'])
+@login_required
+def deletar_gato(id):
+    gato = Gato.query.get_or_404(id) # Vai retornar um erro de 404 se o gato não existir na base
+    db.session.delete(gato)
+    db.session.commit()
+    return redirect(url_for('main.listar_gatos'))
