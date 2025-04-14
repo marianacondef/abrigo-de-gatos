@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user, current_user
-from app.models import Usuario
+from app.models import Usuario, Gato
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.decoradores import admin_required
@@ -35,7 +35,7 @@ def login():
 
     return render_template("login.html")
 
-
+# Registro/criação de conta
 @main.route("/registro", methods=['GET', 'POST'])
 def registro():
     if request.method == 'POST':
@@ -64,7 +64,7 @@ def registro():
 
     return render_template("registro.html")
 
-
+# Logout
 @main.route("/logout")
 @login_required
 def logout():
@@ -76,3 +76,9 @@ def logout():
 @admin_required
 def admin_teste():
     return "Área de admin acessada com sucesso!"
+
+# Lista de gatos 
+@main.route("/gatos")
+def lista_gatos():
+    gatos = Gato.query.all()
+    return render_template("gatos.html", gatos=gatos)

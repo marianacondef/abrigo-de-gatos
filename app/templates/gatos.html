@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 class="titulo">Nossos Gatinhos!</h2>
+
+    <div class="gato-container">
+        {% for gato in gatos %}
+            <div class="gato-card">
+                <div class="image">
+                    <img src="{{ gato.imagem }}" class="profile-image" alt="Gato {{ gato.nome }}">
+                </div>
+                <h3>{{ gato.nome }}</h3>
+                <ul class="gato-info">
+                    <li><strong>Idade:</strong> {{ gato.idade }} anos</li>
+                    <li><strong>Peso:</strong> {{ gato.peso }} kg</li>
+                    <li><strong>Status:</strong> {{ gato.status }}</li>
+                </ul>
+            </div> 
+        {% endfor %}
+    </div>
+{% endblock %}

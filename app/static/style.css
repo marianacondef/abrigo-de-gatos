@@ -169,3 +169,79 @@ button:hover {
 .popup button:hover {
     background-color: #6a4c9c;
 }
+
+.titulo {
+    font-size: 2em;
+    color: #6a4c9c;
+    margin-top: 20px;
+}
+
+/* Estilo dos cards de gatos */
+.gato-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Espaçamento entre os cards */
+    justify-content: center; /* Centraliza os cards */
+    margin-top: 40px;
+    padding: 0 20px;
+}
+
+/* Card individual de cada gato */
+.gato-card {
+    background-color: #ffffff; 
+    border-radius: 15px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra leve */
+    width: 250px;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animação no hover */
+}
+
+.gato-card:hover {
+    transform: translateY(-5px); /* Eleva levemente o card */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15); /* Sombra mais intensa */
+}
+
+/* Nome do gato */
+.gato-card h3 {
+    margin-top: 15px;
+    color: #6a4c9c;
+    font-size: 1.4em;
+}
+
+/* Lista com informações: idade, peso e status */
+.gato-info {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+    text-align: left;
+    font-size: 1em;
+    color: #555;
+}
+
+/* Cada item da lista (idade, peso, status) */
+.gato-info li {
+    margin-bottom: 8px;
+}
+
+/* Área da imagem no card */
+.gato-card .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Imagem do gato */
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Deixa a imagem redonda */
+    object-fit: cover; /* Garante que a imagem preencha sem distorcer */
+    border: 3px solid #6a4c9c; /* Borda roxa */
+    transition: transform 0.3s ease;
+}
+
+/* Zoom leve na imagem ao passar o mouse */
+.gato-card:hover .profile-image {
+    transform: scale(1.05);
+}
