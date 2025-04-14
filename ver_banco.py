@@ -1,7 +1,7 @@
-from app import create_app, db
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
 
-app = create_app()
-
-with app.app_context():
-    print("Banco de dados em uso:")
-    print(db.engine.url)
+class Config:
+    SECRET_KEY = 'chave_secreta'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'abrigo.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
