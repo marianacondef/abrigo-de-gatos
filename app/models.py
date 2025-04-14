@@ -24,6 +24,7 @@ class Gato(db.Model):
     idade = db.Column(db.Integer)
     peso = db.Column(db.Float)
     chip = db.Column(db.String(50), unique=True)
+    imagem = db.Column(db.String(200))
     # Indica a situação do animal em questão (Em tratamento, adotado, em recuperação, etc)
     status = db.Column(db.String(50), default="disponível")
 
