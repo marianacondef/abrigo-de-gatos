@@ -3,6 +3,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from app.models import Usuario
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from app.decoradores import admin_required
 
 main = Blueprint('main', __name__)
 
@@ -70,3 +71,8 @@ def logout():
     logout_user()
     flash("Você foi desconectado com sucesso.", "success")
     return redirect(url_for('main.index'))
+
+@main.route("/admin/teste")
+@admin_required
+def admin_teste():
+    return "Área de admin acessada com sucesso!"
