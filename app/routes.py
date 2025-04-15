@@ -93,21 +93,30 @@ def cadastrar_gato():
         peso = request.form['peso']
         chip = request.form['chip']
         status = request.form['status']
-        imagem = request.form['imagem']  # pode ser uma URL ou caminho
-
+        
+        # Tente obter a imagem. Se não existir, use None.
+        imagem = request.form.get('imagem', None)  # Se o campo não existir, retornará None
+        
+        # Criação do novo gato, sem incluir 'imagem' se ela não existir no formulário
         novo_gato = Gato(
             nome=nome,
             idade=idade,
             peso=peso,
             chip=chip,
-            status=status,
-            imagem=imagem
+            status=status
         )
+
+        # Adicionando a imagem somente se ela foi fornecida
+        if imagem:
+            novo_gato.imagem = imagem
+        
         db.session.add(novo_gato)
         db.session.commit()
-        return redirect(url_for('main.listar_gatos'))
+        return redirect(url_for('main.lista_gatos'))
 
-    return render_template('formulario_gato.html') # Formulário para criar gato
+    return render_template('formulario_gato.html')  # Formulário para criar gato
+
+
 
 # Editar gato
 @main.route('/gatos/<int:id>/editar', methods=['GET', 'POST'])

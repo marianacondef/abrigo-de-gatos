@@ -3,9 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from config import Config
 import os
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
@@ -29,5 +31,7 @@ def create_app():
     if not os.path.exists(db_path):
         with app.app_context():
             db.create_all()
+    
+    migrate.init_app(app, db)
 
     return app
