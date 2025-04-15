@@ -3,6 +3,41 @@
 {% block content %}
     <h2 class="titulo">Nossos Gatinhos!</h2>
 
+    <!-- Formulário de filtro movido para cima da listagem -->
+    <div class="filtro-container">
+        <form method="GET" action="{{ url_for('main.lista_gatos') }}" class="filtro-form">
+            <div class="filtro-grid">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" value="{{ request.args.get('nome', '') }}">
+                </div>
+                <div class="form-group">
+                    <label for="idade">Idade:</label>
+                    <input type="number" id="idade" name="idade" value="{{ request.args.get('idade', '') }}">
+                </div>
+                <div class="form-group">
+                    <label for="peso">Peso:</label>
+                    <input type="number" step="0.1" id="peso" name="peso" value="{{ request.args.get('peso', '') }}">
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select id="status" name="status">
+                        <option value="" {% if not request.args.get('status') %}selected{% endif %}>Todos</option>
+                        <option value="Disponível" {% if request.args.get('status') == 'Disponível' %}selected{% endif %}>
+                            Disponível
+                        </option>
+                        <option value="Em tratamento" {% if request.args.get('status') == 'Em tratamento' %}selected{% endif %}>
+                            Em tratamento
+                        </option>
+                        <option value="Adotado" {% if request.args.get('status') == 'Adotado' %}selected{% endif %}>Adotado
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="filtro-btn">Filtrar</button>
+        </form>
+    </div>
+
     <div class="gato-container">
         {% for gato in gatos %}
             <div class="gato-card">
@@ -25,7 +60,6 @@
 
     <!-- Formulário oculto para envio do metodo POST -->
     <form id="form-deletar" method="POST" style="display: none;">
-        <!-- O CSRF token é importante para proteção contra ataques CSRF -->
         {% if csrf_token %}
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         {% endif %}

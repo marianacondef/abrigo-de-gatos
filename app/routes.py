@@ -78,10 +78,29 @@ def admin_teste():
     return "Área de admin acessada com sucesso!"
 
 # Lista de gatos 
-@main.route("/gatos")
+@main.route('/gatos', methods=['GET'])
 def lista_gatos():
-    gatos = Gato.query.all()
-    return render_template("gatos.html", gatos=gatos)
+    query = Gato.query
+
+    # Aplicar filtros com base nos parâmetros da URL
+    nome = request.args.get('nome')
+    if nome:
+        query = query.filter(Gato.nome.ilike(f"%{nome}%"))
+
+    idade = request.args.get('idade')
+    if idade:
+        query = query.filter(Gato.idade == int(idade))
+
+    peso = request.args.get('peso')
+    if peso:
+        query = query.filter(Gato.peso == float(peso))
+
+    status = request.args.get('status')
+    if status:
+        query = query.filter(Gato.status == status)
+
+    gatos = query.all()
+    return render_template('gatos.html', gatos=gatos)
 
 # Adicionar gato
 @main.route('/gatos/novo', methods=['GET', 'POST'])
