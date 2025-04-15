@@ -15,7 +15,67 @@
                     <li><strong>Peso:</strong> {{ gato.peso }} kg</li>
                     <li><strong>Status:</strong> {{ gato.status }}</li>
                 </ul>
-            </div> 
+                <div class="gato-acoes">
+                    <a href="{{ url_for('main.editar_gato', id=gato.id) }}" class="btn-editar">Editar</a>
+                    <a type="button" class="btn-deletar" onclick="confirmarExclusao({{ gato.id }})">Deletar</a>
+                </div>
+            </div>
         {% endfor %}
     </div>
+
+    <!-- Formulário oculto para envio do metodo POST -->
+    <form id="form-deletar" method="POST" style="display: none;">
+        <!-- O CSRF token é importante para proteção contra ataques CSRF -->
+        {% if csrf_token %}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% endif %}
+    </form>
+
+    <!-- Modal de confirmação de exclusão -->
+    <div id="modal-confirmacao" class="modal">
+        <div class="modal-content">
+            <h3>Confirmar Exclusão</h3>
+            <p>Tem certeza que deseja excluir este gato?</p>
+            <div class="modal-acoes">
+                <button id="btn-confirmar" class="btn-confirmar">Sim, excluir</button>
+                <button id="btn-cancelar" class="btn-cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let gatoIdParaExcluir = null;
+        const modal = document.getElementById('modal-confirmacao');
+        const btnConfirmar = document.getElementById('btn-confirmar');
+        const btnCancelar = document.getElementById('btn-cancelar');
+        const formDeletar = document.getElementById('form-deletar');
+
+        function confirmarExclusao(id) {
+            gatoIdParaExcluir = id;
+            modal.style.display = 'flex';
+        }
+
+        btnConfirmar.addEventListener('click', function() {
+            if (gatoIdParaExcluir) {
+                // Configura o formulário para enviar para a URL correta
+                formDeletar.action = "{{ url_for('main.deletar_gato', id=0) }}".replace('0', gatoIdParaExcluir);
+                // Envia o formulário usando metodo POST
+                formDeletar.submit();
+            }
+            modal.style.display = 'none';
+        });
+
+        btnCancelar.addEventListener('click', function() {
+            modal.style.display = 'none';
+            gatoIdParaExcluir = null;
+        });
+
+        // Fechar o modal se clicar fora dele
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                gatoIdParaExcluir = null;
+            }
+        });
+    </script>
 {% endblock %}

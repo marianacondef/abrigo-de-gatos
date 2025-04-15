@@ -20,7 +20,7 @@ a {
     padding: 10px 20px;
     border-radius: 25px;
     background-color: #8a5ad8; 
-    margin: 110px;
+    margin: 10px;
     font-size: 1.2em;
     transition: background-color 0.3s ease;
 }
@@ -245,3 +245,161 @@ button:hover {
 .gato-card:hover .profile-image {
     transform: scale(1.05);
 }
+
+/* Container dos cards */
+.gato-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 30px 0;
+}
+
+/* Estilo dos cards dos gatos */
+.gato-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Imagem circular */
+.profile-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #8a5ad8;
+    margin-bottom: 10px;
+}
+
+/* Lista com informações do gato */
+.gato-info {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    text-align: left;
+}
+
+/* Ações (botões de editar/deletar) alinhadas lado a lado */
+.gato-acoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding: 0 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Botões */
+.btn-editar, .btn-deletar {
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 0.9em;
+    width: 48%;
+    text-align: center;
+    border: none;
+}
+
+.btn-editar {
+    background-color: #8a5ad8;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-editar:hover {
+    background-color: #6a4c9c;
+    transform: translateY(-2px);
+}
+
+.btn-deletar {
+    background-color: #ff6f91;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-deletar:hover {
+    background-color: #e05c7a;
+    transform: translateY(-2px);
+}
+
+/* Estilos para o modal de confirmação */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #6a4c9c;
+    font-size: 1.4em;
+}
+
+.modal-content p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.modal-acoes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-confirmar, .btn-cancelar {
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    font-size: 1em;
+}
+
+.btn-confirmar {
+    background-color: #ff6f91;
+    color: white;
+}
+
+.btn-cancelar {
+    background-color: #c6b8dd;
+    color: white;
+}
+
+.btn-confirmar:hover {
+    background-color: #e05c7a;
+}
+
+.btn-cancelar:hover {
+    background-color: #be9cf4;
+}
+

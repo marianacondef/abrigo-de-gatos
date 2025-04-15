@@ -130,10 +130,10 @@ def editar_gato(id):
         gato.peso = request.form['peso']
         gato.chip = request.form['chip']
         gato.status = request.form['status']
-        gato.imagem = request.form['imagem']
+        gato.imagem = request.form.get('imagem', gato.imagem)
         
         db.session.commit()
-        return redirect(url_for('main.listar_gatos'))
+        return redirect(url_for('main.lista_gatos'))
 
     return render_template('formulario_gato.html', gato=gato)
 
@@ -144,4 +144,4 @@ def deletar_gato(id):
     gato = Gato.query.get_or_404(id) # Vai retornar um erro de 404 se o gato não existir na base
     db.session.delete(gato)
     db.session.commit()
-    return redirect(url_for('main.listar_gatos'))
+    return redirect(url_for('main.lista_gatos'))
