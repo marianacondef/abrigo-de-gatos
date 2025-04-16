@@ -13,9 +13,13 @@
         <a href="{{ url_for('main.lista_gatos') }}">Nossos Gatinhos</a>
         {% if current_user.is_authenticated and current_user.tipo == 'admin' %}
         <a href="{{ url_for('main.cadastrar_gato') }}">Cadastrar Gato</a>
+        <a href="{{ url_for('main.listar_adocoes') }}">Adoções</a>
         {% endif %}
         {% if current_user.is_authenticated %}
             <a href="{{ url_for('main.logout') }}">Logout</a>
+        {% if current_user.is_authenticated and current_user.tipo == 'geral' %}
+            <a href="{{ url_for('main.minhas_adocoes') }}">Minhas Adoções</a>
+        {% endif %}
         {% else %}
             <a href="{{ url_for('main.login') }}">Login</a>
             <a href="{{ url_for('main.registro') }}">Registrar-se</a>

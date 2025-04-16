@@ -56,8 +56,17 @@
                     <li><strong>Status:</strong> {{ gato.status }}</li>
                 </ul>
                 <div class="gato-acoes">
-                    <a href="{{ url_for('main.editar_gato', id=gato.id) }}" class="btn-editar">Editar</a>
-                    <a type="button" class="btn-deletar" onclick="confirmarExclusao({{ gato.id }})">Deletar</a>
+                    {% if current_user.is_authenticated and current_user.tipo != 'geral' %}
+                        <a href="{{ url_for('main.editar_gato', id=gato.id) }}" class="btn-editar">Editar</a>
+                        <a type="button" class="btn-deletar" onclick="confirmarExclusao({{ gato.id }})">Deletar</a>
+                    {% endif %} 
+
+                    {% if current_user.is_authenticated and current_user.tipo != 'admin' %}
+                        <!-- Exibe o botão de adoção apenas para usuários logados e que não sejam admin -->
+                        <form action="{{ url_for('main.adotar_gato', gato_id=gato.id) }}" method="POST">
+                            <button type="submit" class="btn-adotar">Adotar</button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

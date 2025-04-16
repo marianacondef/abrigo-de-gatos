@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user, current_user
-from app.models import Usuario, Gato
+from app.models import Usuario, Gato, Adocao
 from app import db
 from flask import current_app
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -174,3 +174,53 @@ def deletar_gato(id):
     db.session.delete(gato)
     db.session.commit()
     return redirect(url_for('main.lista_gatos'))
+
+# Rota para adotar um gato
+@main.route("/adotar/<int:gato_id>", methods=['POST'])
+@login_required
+def adotar_gato(gato_id):
+    gato = Gato.query.get_or_404(gato_id)
+    
+    # Lógica de adoção
+    novo_adocao = Adocao(usuario_id=current_user.id, gato_id=gato.id)
+    try:
+        db.session.add(novo_adocao)
+        db.session.commit()
+        flash("Adoção realizada com sucesso!", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Ocorreu um erro: {e}", "error")
+
+    return redirect(url_for('main.lista_gatos'))
+
+
+# Listar adoções (admin)
+@main.route("/adocoes")
+@admin_required
+def listar_adocoes():
+    adocoes = Adocao.query.all()
+    return render_template("adocoes.html", adocoes=adocoes)
+
+# Listar adoções (usuário)
+@main.route("/minhas-adocoes")
+@login_required
+def minhas_adocoes():
+    adocoes = Adocao.query.filter_by(usuario_id=current_user.id).all() # Mostra apenas as adoções do usuário logado
+    return render_template("minhas_adocoes.html", adocoes=adocoes) 
+
+# Editar status de adoção (admin)
+@main.route("/adocao/<int:adocao_id>/editar", methods=["GET", "POST"])
+@admin_required
+def editar_adocao(adocao_id):
+    adocao = Adocao.query.get_or_404(adocao_id)
+
+    if request.method == "POST":
+        novo_status = request.form["status"]
+        adocao.status = novo_status
+        db.session.commit()
+        flash("Status da adoção atualizado!", "success")
+        return redirect(url_for("main.listar_adocoes"))
+
+    return render_template("editar_adocao.html", adocao=adocao)
+
+
