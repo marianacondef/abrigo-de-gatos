@@ -154,7 +154,7 @@ def editar_gato(id):
         db.session.commit()
         return redirect(url_for('main.lista_gatos'))
 
-    return render_template('formulario_gato.html', gato=gato)
+    return render_template('editar_gato.html', gato=gato)
 
 # Deletar gato
 @main.route('/gatos/<int:id>/deletar', methods=['POST'])
