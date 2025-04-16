@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de Adoções</h2>
+
+    {% if adocoes %}
+        <table class="adocoes-table">
+            <thead>
+                <tr>
+                    <th>Gato</th>
+                    <th>Adotante</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for adocao in adocoes %}
+                    <tr>
+                        <td>{{ adocao.gato.nome }}</td>
+                        <td>{{ adocao.usuario.nome }}</td>
+                        <td>{{ adocao.status }}</td>
+                        <td>
+                            <a href="{{ url_for('main.editar_adocao', adocao_id=adocao.id) }}">Editar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhuma adoção registrada ainda.</p>
+    {% endif %}
+
+{% endblock %}

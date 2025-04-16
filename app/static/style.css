@@ -473,3 +473,32 @@ button:hover {
         grid-template-columns: 1fr;
     }
 }
+/* Estilo para a tabela de adoções */
+.adocoes-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove o espaço entre as células */
+    margin-top: 20px;
+}
+
+.adocoes-table th, .adocoes-table td {
+    padding: 10px 15px; /* Adiciona preenchimento interno nas células */
+    text-align: left;
+    border: 1px solid #ddd; /* Borda suave para as células */
+}
+
+.adocoes-table th {
+    background-color: #f4f4f4; /* Cor de fundo para o cabeçalho */
+}
+
+.adocoes-table tbody tr:hover {
+    background-color: #f9f9f9; /* Cor de fundo ao passar o mouse nas linhas */
+}
+
+.adocoes-table td a {
+    text-decoration: none;
+    color: #000000; /* Cor do link */
+}
+
+.adocoes-table td a:hover {
+    text-decoration: underline;
+}

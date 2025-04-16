@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Editar Solicitação de Adoção</h2>
+
+    <form method="POST">
+        <div>
+            <label><strong>Usuário:</strong></label>
+            <span>{{ adocao.usuario.nome }}</span>
+        </div>
+
+        <div>
+            <label><strong>Gato:</strong></label>
+            <span>{{ adocao.gato.nome }}</span>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status da Adoção:</label>
+            <select name="status" id="status">
+                <option value="Em análise" {% if adocao.status == "Em análise" %}selected{% endif %}>Em análise</option>
+                <option value="Aceita" {% if adocao.status == "Aceita" %}selected{% endif %}>Aceita</option>
+                <option value="Recusada" {% if adocao.status == "Recusada" %}selected{% endif %}>Recusada</option>
+            </select>
+        </div>
+
+        <button type="submit">Atualizar</button>
+    </form>
+{% endblock %}

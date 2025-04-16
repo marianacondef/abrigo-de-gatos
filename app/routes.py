@@ -182,7 +182,7 @@ def adotar_gato(gato_id):
     gato = Gato.query.get_or_404(gato_id)
     
     # Lógica de adoção
-    novo_adocao = Adocao(usuario_id=current_user.id, gato_id=gato.id)
+    novo_adocao = Adocao(usuario_id=current_user.id, gato_id=gato.id, status="em análise")
     try:
         db.session.add(novo_adocao)
         db.session.commit()
@@ -213,10 +213,15 @@ def minhas_adocoes():
 @admin_required
 def editar_adocao(adocao_id):
     adocao = Adocao.query.get_or_404(adocao_id)
+    gato = adocao.gato
 
     if request.method == "POST":
         novo_status = request.form["status"]
         adocao.status = novo_status
+        if novo_status == "Aceita":
+            gato.status = "Adotado"
+        elif novo_status == "Recusada":
+            gato.status = "Disponível"
         db.session.commit()
         flash("Status da adoção atualizado!", "success")
         return redirect(url_for("main.listar_adocoes"))
