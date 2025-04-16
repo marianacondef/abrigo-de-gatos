@@ -10,7 +10,7 @@
 
 <h1>Editar Gato</h1>
 <div class="login-container">
-    <form method="POST" class="login-form">
+    <form method="POST" enctype="multipart/form-data" class="login-form">
         <div class="form-group">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" value="{{ gato.nome }}" required>
@@ -30,13 +30,23 @@
         <div class="form-group">
             <label for="status">Status:</label>
             <select id="status" name="status">
-                <option value="Disponível" {% if gato.status == "Disponível" %}selected{% endif %}>Disponível</option>
-                <option value="Em tratamento" {% if gato.status == "Em tratamento" %}selected{% endif %}>Em tratamento</option>
-                <option value="Adotado" {% if gato.status == "Adotado" %}selected{% endif %}>Adotado</option>
+                <option value="Disponível" {% if gato.status == 'Disponível' %}selected{% endif %}>Disponível</option>
+                <option value="Em tratamento" {% if gato.status == 'Em tratamento' %}selected{% endif %}>Em tratamento</option>
+                <option value="Adotado" {% if gato.status == 'Adotado' %}selected{% endif %}>Adotado</option>
             </select>
         </div>
-        <button type="submit">Salvar Alterações</button>
-        <p style="text-align: center;"><a href="{{ url_for('main.index') }}">Voltar</a></p>
+        <div class="form-group">
+            <label for="imagem">Imagem:</label>
+            <input type="file" id="imagem" name="imagem" accept="image/*">
+            {% if gato.imagem %}
+                <div>
+                    <h4>Imagem atual:</h4>
+                    <img src="{{ url_for('static', filename='img/' + gato.imagem) }}" class="profile-image" alt="Imagem do {{ gato.nome }}">
+                </div>
+            {% endif %}
+        </div>
+        <button type="submit">Salvar alterações</button>
+        <p style="text-align: center;"><a href="{{ url_for('main.lista_gatos') }}">Voltar</a></p>
     </form>
 </div>
 {% endblock %}

@@ -2,8 +2,11 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from app.models import Usuario, Gato
 from app import db
+from flask import current_app
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from app.decoradores import admin_required
+import os
 
 main = Blueprint('main', __name__)
 
@@ -112,22 +115,22 @@ def cadastrar_gato():
         peso = request.form['peso']
         chip = request.form['chip']
         status = request.form['status']
-        
-        # Tente obter a imagem. Se não existir, use None.
-        imagem = request.form.get('imagem', None)  # Se o campo não existir, retornará None
-        
-        # Criação do novo gato, sem incluir 'imagem' se ela não existir no formulário
+        imagem = request.files.get('imagem')
+
+        nome_arquivo = None
+        if imagem and imagem.filename != '':
+            nome_arquivo = secure_filename(imagem.filename)
+            caminho_imagem = os.path.join(current_app.static_folder, 'img', nome_arquivo)
+            imagem.save(caminho_imagem)
+
         novo_gato = Gato(
             nome=nome,
             idade=idade,
             peso=peso,
             chip=chip,
-            status=status
+            status=status,
+            imagem=nome_arquivo
         )
-
-        # Adicionando a imagem somente se ela foi fornecida
-        if imagem:
-            novo_gato.imagem = imagem
         
         db.session.add(novo_gato)
         db.session.commit()
@@ -150,6 +153,13 @@ def editar_gato(id):
         gato.chip = request.form['chip']
         gato.status = request.form['status']
         gato.imagem = request.form.get('imagem', gato.imagem)
+
+        imagem = request.files.get('imagem')
+        if imagem and imagem.filename != '':
+            filename = secure_filename(imagem.filename)
+            caminho_upload = os.path.join(current_app.root_path, 'static', 'img', filename)
+            imagem.save(caminho_upload)
+            gato.imagem = filename  
         
         db.session.commit()
         return redirect(url_for('main.lista_gatos'))

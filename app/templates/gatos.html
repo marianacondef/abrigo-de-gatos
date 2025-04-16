@@ -42,8 +42,13 @@
         {% for gato in gatos %}
             <div class="gato-card">
                 <div class="image">
-                    <img src="{{ gato.imagem }}" class="profile-image" alt="Gato {{ gato.nome }}">
+                    {% if gato.imagem %}
+                        <img src="{{ url_for('static', filename='img/' + gato.imagem) }}" class="profile-image" alt="Gato {{ gato.nome }}">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='img/kitty.jpg') }}" class="profile-image" alt="Imagem padrão do gato">
+                    {% endif %}
                 </div>
+                
                 <h3>{{ gato.nome }}</h3>
                 <ul class="gato-info">
                     <li><strong>Idade:</strong> {{ gato.idade }} anos</li>
