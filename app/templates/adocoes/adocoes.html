@@ -5,7 +5,7 @@
 
     <!-- Formulário de filtro com a mesma estrutura da página de gatos -->
     <div class="filtro-container">
-        <form method="GET" action="{{ url_for('main.listar_adocoes') }}" class="filtro-form">
+        <form method="GET" action="{{ url_for('adocoes.listar_adocoes') }}" class="filtro-form">
             <div class="filtro-grid">
                 <div class="form-group">
                     <label for="status">Status:</label>
@@ -62,7 +62,7 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="{{ url_for('main.editar_adocao', adocao_id=adocao.id) }}" class="btn-editar">Editar</a>
+                                <a href="{{ url_for('adocoes.editar_adocao', adocao_id=adocao.id) }}" class="btn-editar">Editar</a>
                             </td>
                         </tr>
                     {% endfor %}

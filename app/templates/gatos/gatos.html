@@ -5,7 +5,7 @@
 
     <!-- Formulário de filtro movido para cima da listagem -->
     <div class="filtro-container">
-        <form method="GET" action="{{ url_for('main.lista_gatos') }}" class="filtro-form">
+        <form method="GET" action="{{ url_for('gatos.lista_gatos') }}" class="filtro-form">
             <div class="filtro-grid">
                 <div class="form-group">
                     <label for="nome">Nome:</label>
@@ -57,13 +57,13 @@
                 </ul>
                 <div class="gato-acoes">
                     {% if current_user.is_authenticated and current_user.tipo != 'geral' %}
-                        <a href="{{ url_for('main.editar_gato', id=gato.id) }}" class="btn-editar">Editar</a>
+                        <a href="{{ url_for('gatos.editar_gato', id=gato.id) }}" class="btn-editar">Editar</a>
                         <a type="button" class="btn-deletar" onclick="confirmarExclusao({{ gato.id }})">Deletar</a>
                     {% endif %} 
 
                     {% if current_user.is_authenticated and current_user.tipo != 'admin' %}
                         <!-- Exibe o botão de adoção apenas para usuários logados e que não sejam admin -->
-                        <form action="{{ url_for('main.adotar_gato', gato_id=gato.id) }}" method="POST">
+                        <form action="{{ url_for('adocoes.adotar_gato', gato_id=gato.id) }}" method="POST">
                             <button type="submit" class="btn-adotar">Adotar</button>
                         </form>
                     {% endif %}
@@ -106,7 +106,7 @@
         btnConfirmar.addEventListener('click', function() {
             if (gatoIdParaExcluir) {
                 // Configura o formulário para enviar para a URL correta
-                formDeletar.action = "{{ url_for('main.deletar_gato', id=0) }}".replace('0', gatoIdParaExcluir);
+                formDeletar.action = "{{ url_for('gatos.deletar_gato', id=0) }}".replace('0', gatoIdParaExcluir);
                 // Envia o formulário usando metodo POST
                 formDeletar.submit();
             }
