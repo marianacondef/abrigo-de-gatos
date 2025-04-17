@@ -40,11 +40,11 @@
                         </ul>
                     </div>
 
-                    {% if adocao.status == "aceita" %}
+                    {% if adocao.status == "Aceita" %}
                         <div class="mensagem-sucesso">
                             <p>Parabéns! Sua adoção foi aprovada. Entre em contato com o abrigo para combinar a retirada do seu novo amigo.</p>
                         </div>
-                    {% elif adocao.status == "recusada" %}
+                    {% elif adocao.status == "Recusada" %}
                         <div class="mensagem-erro">
                             <p>Infelizmente sua solicitação foi recusada. Para mais informações, entre em contato com o abrigo.</p>
                         </div>

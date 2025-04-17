@@ -182,11 +182,11 @@ def adotar_gato(gato_id):
     gato = Gato.query.get_or_404(gato_id)
     
     # Lógica de adoção
-    novo_adocao = Adocao(usuario_id=current_user.id, gato_id=gato.id, status="em análise")
+    novo_adocao = Adocao(usuario_id=current_user.id, gato_id=gato.id, status="Em análise")
     try:
         db.session.add(novo_adocao)
         db.session.commit()
-        flash("Adoção realizada com sucesso!", "success")
+        flash("Pedido de adoção realizado com sucesso!", "success")
     except Exception as e:
         db.session.rollback()
         flash(f"Ocorreu um erro: {e}", "error")
