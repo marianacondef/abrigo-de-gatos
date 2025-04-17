@@ -198,7 +198,22 @@ def adotar_gato(gato_id):
 @main.route("/adocoes")
 @admin_required
 def listar_adocoes():
-    adocoes = Adocao.query.all()
+    query = Adocao.query.join(Gato).join(Usuario)
+
+    # Filtros
+    status = request.args.get("status")
+    if status:
+        query = query.filter(Adocao.status.ilike(f"%{status}%"))
+
+    nome_gato = request.args.get("nome_gato")
+    if nome_gato:
+        query = query.filter(Gato.nome.ilike(f"%{nome_gato}%"))
+
+    nome_adotante = request.args.get("nome_adotante")
+    if nome_adotante:
+        query = query.filter(Usuario.nome.ilike(f"%{nome_adotante}%"))
+
+    adocoes = query.all()
     return render_template("adocoes.html", adocoes=adocoes)
 
 # Listar adoções (usuário)

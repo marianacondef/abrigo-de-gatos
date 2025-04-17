@@ -1,33 +1,77 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Lista de Adoções</h2>
+    <h2 class="titulo">Lista de Adoções</h2>
 
-    {% if adocoes %}
-        <table class="adocoes-table">
-            <thead>
-                <tr>
-                    <th>Gato</th>
-                    <th>Adotante</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for adocao in adocoes %}
+    <!-- Formulário de filtro com a mesma estrutura da página de gatos -->
+    <div class="filtro-container">
+        <form method="GET" action="{{ url_for('main.listar_adocoes') }}" class="filtro-form">
+            <div class="filtro-grid">
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select id="status" name="status">
+                        <option value="" {% if not request.args.get('status') %}selected{% endif %}>Todos</option>
+                        <option value="em análise" {% if request.args.get('status') == 'em análise' %}selected{% endif %}>Em análise</option>
+                        <option value="aceita" {% if request.args.get('status') == 'aceita' %}selected{% endif %}>Aceita</option>
+                        <option value="recusada" {% if request.args.get('status') == 'recusada' %}selected{% endif %}>Recusada</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="nome_gato">Nome do Gato:</label>
+                    <input type="text" id="nome_gato" name="nome_gato" value="{{ request.args.get('nome_gato', '') }}">
+                </div>
+                <div class="form-group">
+                    <label for="nome_adotante">Nome do Adotante:</label>
+                    <input type="text" id="nome_adotante" name="nome_adotante" value="{{ request.args.get('nome_adotante', '') }}">
+                </div>
+            </div>
+            <button type="submit" class="filtro-btn">Filtrar</button>
+        </form>
+    </div>
+
+    <div class="adocoes-container">
+        {% if adocoes %}
+            <table class="adocoes-table">
+                <thead>
                     <tr>
-                        <td>{{ adocao.gato.nome }}</td>
-                        <td>{{ adocao.usuario.nome }}</td>
-                        <td>{{ adocao.status }}</td>
-                        <td>
-                            <a href="{{ url_for('main.editar_adocao', adocao_id=adocao.id) }}">Editar</a>
-                        </td>
+                        <th>Gato</th>
+                        <th>Adotante</th>
+                        <th>Data da Solicitação</th>
+                        <th>Status</th>
+                        <th>Ações</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>Nenhuma adoção registrada ainda.</p>
-    {% endif %}
-
+                </thead>
+                <tbody>
+                    {% for adocao in adocoes %}
+                        <tr>
+                            <td>
+                                <div class="adocao-gato-info">
+                                    {% if adocao.gato.imagem %}
+                                        <img src="{{ url_for('static', filename='img/' + adocao.gato.imagem) }}" class="mini-image" alt="Gato {{ adocao.gato.nome }}">
+                                    {% else %}
+                                        <img src="{{ url_for('static', filename='img/kitty.jpg') }}" class="mini-image" alt="Imagem padrão do gato">
+                                    {% endif %}
+                                    <span>{{ adocao.gato.nome }}</span>
+                                </div>
+                            </td>
+                            <td>{{ adocao.usuario.nome }}</td>
+                            <td>{{ adocao.data.strftime('%d/%m/%Y') }}</td>
+                            <td>
+                                <span class="status-badge status-{{ adocao.status|replace(' ', '-') }}">
+                                    {{ adocao.status }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('main.editar_adocao', adocao_id=adocao.id) }}" class="btn-editar">Editar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="mensagem-info centralizado">
+                <p>Nenhuma adoção registrada ainda.</p>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

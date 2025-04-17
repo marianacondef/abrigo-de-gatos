@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Adoções - Abrigo de Gatos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<h1>Minhas Adoções</h1>
+
+<div class="adocoes-container">
+    {% if adocoes %}
+        <div class="adocoes-grid">
+            {% for adocao in adocoes %}
+                <div class="adocao-card">
+                    <div class="image">
+                        {% if adocao.gato.imagem %}
+                            <img src="{{ url_for('static', filename='img/' + adocao.gato.imagem) }}" class="profile-image" alt="Gato {{ adocao.gato.nome }}">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='img/kitty.jpg') }}" class="profile-image" alt="Imagem padrão do gato">
+                        {% endif %}
+                    </div>
+
+                    <h3>{{ adocao.gato.nome }}</h3>
+                    <ul class="adocao-info">
+                        <li><strong>Data da Solicitação:</strong> {{ adocao.data.strftime('%d/%m/%Y') }}</li>
+                        <li><strong>Status:</strong> <span class="status-{{ adocao.status|replace(' ', '-') }}">{{ adocao.status }}</span></li>
+                    </ul>
+
+                    <div class="adocao-detalhes">
+                        <h4>Detalhes do Gato</h4>
+                        <ul>
+                            <li><strong>Idade:</strong> {{ adocao.gato.idade }} anos</li>
+                            <li><strong>Peso:</strong> {{ adocao.gato.peso }} kg</li>
+                            {% if adocao.gato.chip %}
+                                <li><strong>Chip:</strong> {{ adocao.gato.chip }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    {% if adocao.status == "aceita" %}
+                        <div class="mensagem-sucesso">
+                            <p>Parabéns! Sua adoção foi aprovada. Entre em contato com o abrigo para combinar a retirada do seu novo amigo.</p>
+                        </div>
+                    {% elif adocao.status == "recusada" %}
+                        <div class="mensagem-erro">
+                            <p>Infelizmente sua solicitação foi recusada. Para mais informações, entre em contato com o abrigo.</p>
+                        </div>
+                    {% else %}
+                        <div class="mensagem-info">
+                            <p>Sua solicitação está em análise. Em breve entraremos em contato.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="mensagem-info centralizado">
+            <p>Você ainda não solicitou nenhuma adoção.</p>
+            <a href="{{ url_for('main.lista_gatos') }}" class="btn-link">Ver Gatinhos Disponíveis</a>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}
