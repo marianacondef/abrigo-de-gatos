@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 class="titulo">Controle de Medicações</h2>
+
+    {% if current_user.is_authenticated and current_user.tipo == 'admin' %}
+    <div class="topo-acoes">
+        <a href="{{ url_for('medicacoes.nova_medicacao') }}" class="btn-adicionar">+ Nova Medicação</a>
+    </div>
+    {% endif %}
+
+    {% if medicacoes %}
+        <div class="gato-container">
+            {% for medicacao in medicacoes %}
+                <div class="gato-card">
+                    <h3>{{ medicacao.nome }}</h3>
+                    <ul class="gato-info">
+                        <li><strong>Gato:</strong> {{ medicacao.gato.nome }}</li>
+                        <li><strong>Dosagem:</strong> {{ medicacao.dosagem }}</li>
+                        <li><strong>Frequência:</strong> {{ medicacao.frequencia }}</li>
+                        <li><strong>Início:</strong> {{ medicacao.data_inicio.strftime('%d/%m/%Y') }}</li>
+                        <li><strong>Fim:</strong>
+                            {% if medicacao.data_fim %}
+                                {{ medicacao.data_fim.strftime('%d/%m/%Y') }}
+                            {% else %}
+                                Indefinido
+                            {% endif %}
+                        </li>
+                    </ul>
+                    <div class="gato-acoes">
+                        {% if current_user.is_authenticated and current_user.tipo != 'geral' %}
+                        <a href="{{ url_for('medicacoes.editar_medicacao', id=medicacao.id) }}" class="btn-editar">Editar</a>
+                        <a type="button" class="btn-deletar" onclick="confirmarExclusao({{ medicacao.id }})">Deletar</a>
+                    {% endif %} 
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+      
+    {% else %}
+        <p class="mensagem">Nenhuma medicação cadastrada no momento.</p>
+    {% endif %}
+
+
+    <!-- Formulário oculto -->
+    <form id="form-deletar" method="POST" style="display: none;">
+        {% if csrf_token %}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% endif %}
+    </form>
+
+    <!-- Modal de confirmação de exclusão -->
+    <div id="modal-confirmacao" class="modal">
+        <div class="modal-content">
+            <h3>Confirmar Exclusão</h3>
+            <p>Tem certeza que deseja excluir esta medicação?</p>
+            <div class="modal-acoes">
+                <button id="btn-confirmar" class="btn-confirmar">Sim, excluir</button>
+                <button id="btn-cancelar" class="btn-cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let medIdParaExcluir = null;
+        const modal = document.getElementById('modal-confirmacao');
+        const btnConfirmar = document.getElementById('btn-confirmar');
+        const btnCancelar = document.getElementById('btn-cancelar');
+        const formDeletar = document.getElementById('form-deletar');
+
+        function confirmarExclusao(id) {
+            medIdParaExcluir = id;
+            modal.style.display = 'flex';
+        }
+
+        btnConfirmar.addEventListener('click', function() {
+            if (medIdParaExcluir) {
+                formDeletar.action = "{{ url_for('medicacoes.deletar_medicacao', id=0) }}".replace('0', medIdParaExcluir);
+                formDeletar.submit();
+            }
+            modal.style.display = 'none';
+        });
+
+        btnCancelar.addEventListener('click', function() {
+            modal.style.display = 'none';
+            medIdParaExcluir = null;
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                medIdParaExcluir = null;
+            }
+        });
+    </script>
+{% endblock %}

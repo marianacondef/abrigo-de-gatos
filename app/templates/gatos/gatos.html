@@ -2,6 +2,12 @@
 
 {% block content %}
     <h2 class="titulo">Nossos Gatinhos!</h2>
+    {% if current_user.is_authenticated and current_user.tipo == 'admin' %}
+    <div class="admin-acoes">
+        <a href="{{ url_for('gatos.cadastrar_gato') }}" class="btn-adicionar">Cadastrar Gato</a>
+    </div>
+    {% endif %}
+
 
     <!-- Formulário de filtro movido para cima da listagem -->
     <div class="filtro-container">
