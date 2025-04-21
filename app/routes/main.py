@@ -35,7 +35,7 @@ def login():
 
     return render_template("login.html")
 
-
+# Registro/criação de conta
 @main.route("/registro", methods=['GET', 'POST'])
 def registro():
     if request.method == 'POST':
@@ -64,7 +64,7 @@ def registro():
 
     return render_template("registro.html")
 
-
+# Logout
 @main.route("/logout")
 @login_required
 def logout():

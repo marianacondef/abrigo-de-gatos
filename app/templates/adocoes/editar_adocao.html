@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Adoção - Abrigo de Gatos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<h1>Editar Solicitação de Adoção</h1>
+
+<div class="login-container">
+    <form method="POST" class="login-form">
+        <div class="adocao-info-header">
+            <div class="adocao-gato-image">
+                {% if adocao.gato.imagem %}
+                    <img src="{{ url_for('static', filename='img/' + adocao.gato.imagem) }}" class="profile-image" alt="Gato {{ adocao.gato.nome }}">
+                {% else %}
+                    <img src="{{ url_for('static', filename='img/kitty.jpg') }}" class="profile-image" alt="Imagem padrão do gato">
+                {% endif %}
+            </div>
+            <h3>{{ adocao.gato.nome }}</h3>
+        </div>
+
+        <div class="form-group">
+            <label><strong>Adotante:</strong></label>
+            <span>{{ adocao.usuario.nome }}</span>
+        </div>
+
+        <div class="form-group">
+            <label><strong>Email do Adotante:</strong></label>
+            <span>{{ adocao.usuario.email }}</span>
+        </div>
+
+        <div class="form-group">
+            <label><strong>Data da Solicitação:</strong></label>
+            <span>{{ adocao.data.strftime('%d/%m/%Y') }}</span>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status da Adoção:</label>
+            <select name="status" id="status">
+                <option value="Em análise" {% if adocao.status == "Em análise" %}selected{% endif %}>Em análise</option>
+                <option value="Aceita" {% if adocao.status == "Aceita" %}selected{% endif %}>Aceita</option>
+                <option value="Recusada" {% if adocao.status == "Recusada" %}selected{% endif %}>Recusada</option>
+            </select>
+        </div>
+
+        <button type="submit">Atualizar</button>
+        <p style="text-align: center;"><a href="{{ url_for('adocoes.listar_adocoes') }}">Voltar</a></p>
+    </form>
+</div>
+{% endblock %}

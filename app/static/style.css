@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f3f0f7; 
+    background-color: #f3f0f7;
     color: #333;
     text-align: center;
     margin: 0;
@@ -19,19 +19,19 @@ a {
     color: #fff;
     padding: 10px 20px;
     border-radius: 25px;
-    background-color: #8a5ad8; 
-    margin: 110px;
+    background-color: #8a5ad8;
+    margin: 10px;
     font-size: 1.2em;
     transition: background-color 0.3s ease;
 }
 
 a:hover {
-    background-color: #6a4c9c; 
+    background-color: #6a4c9c;
 }
 
 /* Botões para login/logout */
 button {
-    background-color: #c6b8dd; 
+    background-color: #8a5ad8;
     color: rgb(255, 255, 255);
     border: none;
     border-radius: 25px;
@@ -42,7 +42,7 @@ button {
 }
 
 button:hover {
-    background-color: #be9cf4; 
+    background-color: #be9cf4;
 }
 
 /* Barra de navegação */
@@ -63,7 +63,7 @@ button:hover {
 }
 
 .navbar a:hover {
-    color: #a27cde;
+    color: #6a4c9c;
 }
 
 /* Mensagens de erro e sucesso */
@@ -169,3 +169,545 @@ button:hover {
 .popup button:hover {
     background-color: #6a4c9c;
 }
+
+.titulo {
+    font-size: 2em;
+    color: #6a4c9c;
+    margin-top: 20px;
+}
+
+/* Estilo dos cards de gatos */
+.gato-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Espaçamento entre os cards */
+    justify-content: center; /* Centraliza os cards */
+    margin-top: 40px;
+    padding: 0 20px;
+}
+
+/* Card individual de cada gato */
+.gato-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra leve */
+    width: 250px;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animação no hover */
+}
+
+.gato-card:hover {
+    transform: translateY(-5px); /* Eleva levemente o card */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15); /* Sombra mais intensa */
+}
+
+/* Nome do gato */
+.gato-card h3 {
+    margin-top: 15px;
+    color: #6a4c9c;
+    font-size: 1.4em;
+}
+
+/* Lista com informações: idade, peso e status */
+.gato-info {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+    text-align: left;
+    font-size: 1em;
+    color: #555;
+}
+
+/* Cada item da lista (idade, peso, status) */
+.gato-info li {
+    margin-bottom: 8px;
+}
+
+/* Área da imagem no card */
+.gato-card .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Imagem do gato */
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Deixa a imagem redonda */
+    object-fit: cover; /* Garante que a imagem preencha sem distorcer */
+    border: 3px solid #6a4c9c; /* Borda roxa */
+    transition: transform 0.3s ease;
+}
+
+/* Zoom leve na imagem ao passar o mouse */
+.gato-card:hover .profile-image {
+    transform: scale(1.05);
+}
+
+/* Container dos cards */
+.gato-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 30px 0;
+}
+
+/* Estilo dos cards dos gatos */
+.gato-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Imagem circular */
+.profile-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #8a5ad8;
+    margin-bottom: 10px;
+}
+
+/* Lista com informações do gato */
+.gato-info {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    text-align: left;
+}
+
+/* Ações (botões de editar/deletar) alinhadas lado a lado */
+.gato-acoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding: 0 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Botões */
+.btn-editar, .btn-deletar {
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 0.9em;
+    width: 48%;
+    text-align: center;
+    border: none;
+}
+
+.btn-editar {
+    background-color: #8a5ad8;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-editar:hover {
+    background-color: #6a4c9c;
+    transform: translateY(-2px);
+}
+
+.btn-deletar {
+    background-color: #ff6f91;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-deletar:hover {
+    background-color: #e05c7a;
+    transform: translateY(-2px);
+}
+
+/* Estilos para o modal de confirmação */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #6a4c9c;
+    font-size: 1.4em;
+}
+
+.modal-content p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.modal-acoes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-confirmar, .btn-cancelar {
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    font-size: 1em;
+}
+
+.btn-confirmar {
+    background-color: #ff6f91;
+    color: white;
+}
+
+.btn-cancelar {
+    background-color: #c6b8dd;
+    color: white;
+}
+
+.btn-confirmar:hover {
+    background-color: #e05c7a;
+}
+
+.btn-cancelar:hover {
+    background-color: #be9cf4;
+}
+
+/* Estilos para o container do filtro */
+.filtro-container {
+    max-width: 900px;
+    margin: 20px auto 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid para os campos de filtro lado a lado */
+.filtro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* Estilo do formulário de filtro */
+.filtro-form {
+    width: 100%;
+}
+
+/* Cada grupo de campos do formulário de filtro */
+.filtro-form .form-group {
+    margin-bottom: 10px;
+}
+
+.filtro-form .form-group label {
+    display: block;
+    font-size: 1.1em;
+    color: #6a4c9c;
+    margin-bottom: 5px;
+}
+
+.filtro-form .form-group input,
+.filtro-form .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+/* Botão de filtrar */
+.filtro-btn {
+    background-color: #8a5ad8;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    min-width: 150px;
+}
+
+.filtro-btn:hover {
+    background-color: #6a4c9c;
+}
+
+/* Estilo para a tabela de adoções */
+.adocoes-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove o espaço entre as células */
+    margin-top: 20px;
+}
+
+.adocoes-table th, .adocoes-table td {
+    padding: 10px 15px; /* Adiciona preenchimento interno nas células */
+    text-align: left;
+    border: 1px solid #ddd; /* Borda suave para as células */
+}
+
+.adocoes-table th {
+    background-color: #f4f4f4; /* Cor de fundo para o cabeçalho */
+}
+
+.adocoes-table tbody tr:hover {
+    background-color: #f9f9f9; /* Cor de fundo ao passar o mouse nas linhas */
+}
+
+.adocoes-table td a {
+    text-decoration: none;
+    color: #f9f9f9; /* Cor do link */
+}
+
+.adocoes-table td a:hover {
+    text-decoration: underline;
+}
+/* Estilos para as páginas de adoções */
+.adocoes-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.adocoes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 400px);
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: center;
+    max-width: 1240px; /* Permite 3 cards de 400px + 2 gaps de 20px */
+}
+
+.adocao-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+    width: 360px; /* 400px - 40px de padding (20px de cada lado) */
+}
+
+.adocao-card:hover {
+    transform: translateY(-5px);
+}
+
+.adocao-card .image {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.adocao-card .profile-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #f0f0f0;
+}
+
+.adocao-card h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.adocao-info {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.adocao-info li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.adocao-detalhes {
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.adocao-detalhes h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.adocao-detalhes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.adocao-detalhes li {
+    padding: 5px 0;
+}
+
+.mensagem-sucesso {
+    background-color: #e6f7e6;
+    border-left: 4px solid #4caf50;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 4px;
+}
+
+.mensagem-erro {
+    background-color: #ffebee;
+    border-left: 4px solid #f44336;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 4px;
+}
+
+.mensagem-info {
+    background-color: #e3f2fd;
+    border-left: 4px solid #6a4c9c;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 4px;
+}
+
+.centralizado {
+    text-align: center;
+    padding: 30px;
+}
+
+.btn-link {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #6a4c9c;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn-link:hover {
+    background-color: #6a4c9c;
+}
+
+/* Estilos para a tabela de adoções */
+.adocoes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.adocoes-table th,
+.adocoes-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.adocoes-table th {
+    background-color: #f9f9f9;
+    font-weight: 600;
+    color: #333;
+}
+
+.adocoes-table tr:last-child td {
+    border-bottom: none;
+}
+
+.adocoes-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.adocao-gato-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mini-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.status-Em-análise {
+    background-color: #fff8e1;
+    color: #ff8f00;
+}
+
+.status-Aceita {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-Recusada {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* Estilos para o formulário de edição de adoção */
+.adocao-info-header {
+    text-align: center;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+
+
