@@ -4,6 +4,11 @@ from app.routes.adocoes import adocoes as adocoes_bp
 from app.routes.medicacoes import medicacoes as medicacoes_bp
 
 def register_blueprints(app):
+    """Registra os blueprints no aplicativo Flask.
+
+    Args:
+        app (Flask): Aplicação Flask na qual os blueprints serão registrados.
+    """
     app.register_blueprint(main_bp)
     app.register_blueprint(gatos_bp, url_prefix="/gatos")
     app.register_blueprint(adocoes_bp, url_prefix="/adocoes")

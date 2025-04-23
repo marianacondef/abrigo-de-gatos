@@ -10,26 +10,16 @@ gatos = Blueprint('gatos', __name__)
 
 @gatos.route('/gatos', methods=['GET'])
 def lista_gatos():
-    query = Gato.query
+    """Lista todos os gatos disponíveis no sistema.
 
+    Returns:
+        Template: Página com a lista de gatos.
+    """
+    query = Gato.query
     nome = request.args.get('nome')
     if nome:
         query = query.filter(Gato.nome.ilike(f"%{nome}%"))
-
-    idade = request.args.get('idade')
-    if idade:
-        query = query.filter(Gato.idade == int(idade))
-
-    peso = request.args.get('peso')
-    if peso:
-        query = query.filter(Gato.peso == float(peso))
-
-    status = request.args.get('status')
-    if status:
-        query = query.filter(Gato.status == status)
-
-    gatos = query.all()
-    return render_template('gatos/gatos.html', gatos=gatos)
+    return render_template('gatos/gatos.html', gatos=query.all())
 
 @gatos.route('/gatos/novo', methods=['GET', 'POST'])
 @admin_required  
