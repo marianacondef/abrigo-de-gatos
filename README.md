@@ -25,3 +25,23 @@ Sistema de gerenciamento para um abrigo de gatos: controle de cadastros, medicaÃ
 3. Crie o ambiente virtual:
    ```bash
    python -m venv venv
+
+
+---
+
+### ativar, instalar, rodar
+
+```markdown
+4. Ative o ambiente virtual:
+   - **Git Bash**:
+     ```bash
+     source "venv/Scripts/activate"
+     ```
+   - **PowerShell**:
+     ```powershell
+     .\venv\Scripts\activate
+     ```
+
+5. Instale as dependÃªncias:
+   ```bash
+   pip install flask flask-login flask-sqlalchemy flask-migrate
