@@ -11,3 +11,9 @@ Sistema de gerenciamento para um abrigo de gatos: controle de cadastros, medica�
 - Controle de medicações para os gatos.
 - Filtros inteligentes por nome, idade, peso e status.
 - Sistema de login para usuários comuns e administradores.
+
+## 🚀 Como Rodar o Projeto
+
+1. Clone o repositório:
+   ```bash
+   git clone [link-do-repositorio]
