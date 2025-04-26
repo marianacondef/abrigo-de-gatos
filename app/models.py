@@ -22,6 +22,13 @@ class Usuario(UserMixin, db.Model):
     # Indica o grupo do qual o usuario faz parte
     tipo = db.Column(db.String(20), default="geral")
 
+    @property
+    def is_admin(self):
+        return self.tipo == 'admin'
+
+    favoritos = db.relationship("Gato", secondary="favoritos", backref="favoritado_por")
+    adotou = db.relationship("Adocao", backref="usuario", lazy=True)
+
     def __repr__(self):
         return f"<Usuario {self.nome}>"
 
