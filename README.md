@@ -17,3 +17,11 @@ Sistema de gerenciamento para um abrigo de gatos: controle de cadastros, medica√
 1. Clone o reposit√≥rio:
    ```bash
    git clone [link-do-repositorio]
+
+2. Acesse a pasta do projeto:
+   ```bash 
+   cd tp2-adc
+
+3. Crie o ambiente virtual:
+   ```bash
+   python -m venv venv
