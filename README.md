@@ -31,7 +31,6 @@ Sistema de gerenciamento para um abrigo de gatos: controle de cadastros, medica√
 
 ### ativar, instalar, rodar
 
-```markdown
 4. Ative o ambiente virtual:
    - **Git Bash**:
      ```bash
@@ -45,3 +44,20 @@ Sistema de gerenciamento para um abrigo de gatos: controle de cadastros, medica√
 5. Instale as depend√™ncias:
    ```bash
    pip install flask flask-login flask-sqlalchemy flask-migrate
+
+6. Rode o servidor:
+    ```bash
+    python run.py
+
+7. Acesse no navegador:
+    ```cpp
+    http://127.0.0.1:5000/
+
+## üõ†Ô∏è Tecnologias Utilizadas
+
+- Python 3.11
+- Flask
+- Flask-Login
+- Flask-SQLAlchemy
+- Flask-Migrate
+- SQLite
