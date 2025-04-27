@@ -10,6 +10,13 @@ login_manager = LoginManager()
 migrate = Migrate()
 
 def create_app():
+    """
+      Inicializa o aplicativo e registra os blueprints.
+
+      Este arquivo contem a configuracao base do aplicativo Flask, incluindo
+      a inicializacao de extensoes e o registro de blueprints.
+      """
+
     app = Flask(__name__)
     app.config.from_object(Config)
     
