@@ -20,7 +20,7 @@ Sistema de gerenciamento para um abrigo de gatos: controle de cadastros, medica√
 
 2. Acesse a pasta do projeto:
    ```bash 
-   cd tp2-adc
+   cd abrigo-de-gatos
 
 3. Crie o ambiente virtual:
    ```bash
