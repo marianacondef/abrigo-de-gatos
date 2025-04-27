@@ -26,12 +26,6 @@ Sistema de gerenciamento para um abrigo de gatos: controle de cadastros, medica�
    ```bash
    python -m venv venv
 
-
----
-
-```markdown
-### ativar, instalar, rodar
-
 4. Ative o ambiente virtual:
    - **Git Bash**:
      ```bash
@@ -54,7 +48,6 @@ Sistema de gerenciamento para um abrigo de gatos: controle de cadastros, medica�
     ```cpp
     http://127.0.0.1:5000/
 
-```markdown
 ## 🛠️ Tecnologias Utilizadas
 
 - Python 3.11
@@ -64,7 +57,6 @@ Sistema de gerenciamento para um abrigo de gatos: controle de cadastros, medica�
 - Flask-Migrate
 - SQLite
 
-```markdown
 ## 📂 Estrutura Básica do Projeto
 
 ```bash
@@ -81,8 +73,7 @@ tp2-adc/
 ├── requirements.txt
 └── static/
     ├── style.css
-
-```markdown
+```
 ## ⚡ Observações
 
 - Banco de dados SQLite (`abrigo.db`) já configurado e pronto para uso.
